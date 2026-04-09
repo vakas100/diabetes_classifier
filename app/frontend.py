@@ -84,7 +84,7 @@ if st.button("Predict"):
     try:
         # 🔁 Replace this URL with your Render URL after deployment
         response = requests.post(
-            "https://diabetes-classifier-faen.onrender.com/",
+            "https://diabetes-classifier-faen.onrender.com/predict",
             json=payload
         )
         result = response.json()
