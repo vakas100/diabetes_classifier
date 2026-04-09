@@ -1,13 +1,20 @@
 import streamlit as st
 import requests
+import os
+from dotenv import load_dotenv
 
-# ─── Page Config ───────────────────────────────────────────
+# Render url
+load_dotenv()
+RENDER_URL = os.getenv("RENDER_URL")
+
+
+# Page Config
 st.set_page_config(
     page_title="Diabetes Classifier",
     layout="centered"
 )
 
-# ─── Custom Styling ────────────────────────────────────────
+# Custom Styling
 st.markdown("""
     <style>
         .main { background-color: #f8f9fa; }
@@ -44,12 +51,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ─── Header ────────────────────────────────────────────────
-st.title("🩺 Diabetes Classifier")
+# Header
+st.title(" Diabetes Classifier")
 st.markdown("Enter patient details below to predict diabetes risk.")
 st.divider()
 
-# ─── Input Form ────────────────────────────────────────────
+# Input Form
 col1, col2 = st.columns(2)
 
 with col1:
@@ -66,7 +73,7 @@ with col2:
 
 st.divider()
 
-# ─── Predict Button ────────────────────────────────────────
+# Predict Button
 if st.button("Predict"):
 
     # Send data to FastAPI backend
@@ -82,9 +89,8 @@ if st.button("Predict"):
     }
 
     try:
-        # 🔁 Replace this URL with your Render URL after deployment
         response = requests.post(
-            "https://diabetes-classifier-faen.onrender.com/predict",
+            url=f"{RENDER_URL}/predict",
             json=payload
         )
         result = response.json()
