@@ -3,11 +3,14 @@ import numpy as np
 from pydantic import BaseModel
 import pickle
 import uvicorn
+from pathlib import Path
 
 app = FastAPI(title='Diabetes Classifier')
 
-model = pickle.load(open('../model.pkl','rb'))
-scaler = pickle.load(open('../scaler.pkl','rb'))
+BASE_DIR = Path(__file__).parent.parent  # goes up from app/ to project root
+
+model = pickle.load(open(BASE_DIR / "model.pkl", "rb"))
+scaler = pickle.load(open(BASE_DIR / "scaler.pkl", "rb"))
 
 
 class DiabetesInput(BaseModel):
