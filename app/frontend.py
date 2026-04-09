@@ -1,12 +1,5 @@
 import streamlit as st
 import requests
-import os
-from dotenv import load_dotenv
-
-# Render url
-load_dotenv()
-RENDER_URL = os.getenv("RENDER_URL")
-
 
 # Page Config
 st.set_page_config(
@@ -90,7 +83,7 @@ if st.button("Predict"):
 
     try:
         response = requests.post(
-            url=f"{RENDER_URL}/predict",
+            url="https://diabetes-classifier-faen.onrender.com/predict",
             json=payload
         )
         result = response.json()
